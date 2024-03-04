@@ -7,4 +7,7 @@ E.g. if the plaintext is "Hello this is my program. I made it in 3 weeks", it is
 Then this is used to generate the key
 The key is then used to encrypt the plaintext by doing simple math involving adding the ascii values of the plaintext character and it's corresponding key character. Some extra math is done and the resultant number is converted into a character, which is then added to the ciphertext string.
 Then, the program uses the original plaintext as the reference and inserts all the symbols and whitespaces at the corresponding locations in the ciphertext.
+
 That is about it I guess
+
+There might be some bugs and optimisation issues (most likkely in the key generation part)
