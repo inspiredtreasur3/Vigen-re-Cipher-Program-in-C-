@@ -1,4 +1,4 @@
-# Vigen-re-Cipher-Program-in-C-
+# Vigenère Cipher Program in C#
 A simple Vigenère cipher program created in C#.
 
 This is a simple command line program based on Vigenere cipher made in C#. The program has both encryption and decryption functions
