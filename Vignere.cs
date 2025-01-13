@@ -1,11 +1,11 @@
-﻿using System;
+using System;
 class Ciphercomp
 {
     public void Encryption(string ptxt)
     {
         Console.WriteLine("Enter the key");
-        string key = Console.ReadLine(), str = "", newptxt = ptxt;
-        string[] symbols = { " ", ".", "?", "/", ",", "'", "\\", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "+", "-", "*", "&", "\"", "^", "@", "!", "@", "#", "$", "%", "(", ")", ";", ":", "<", ">", "=", "`", "~", "[", "]", "{", "}" };
+        string key = Console.ReadLine(), str = "", newptxt = ptxt, extend="";
+        string[] symbols = { " ", ".", "?", "/", "|", ",", "'", "\\", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "+", "-", "*", "_", "&", "\"", "^", "@", "!", "@", "#", "$", "%", "(", ")", ";", ":", "<", ">", "=", "~", "[", "]", "{", "}", "`", "+" };
         char mx;
         foreach (string symbol in symbols)
         {
@@ -13,12 +13,11 @@ class Ciphercomp
         }
         
         try {
-            while (newptxt.Length > key.Length)
+            while (newptxt.Length > extend.Length)
             {
-                key += key;
-                key = key.ToLower();
+                extend = extend + key;
             }
-            Console.WriteLine(key);
+            extend = extend.ToLower();
         }
         catch { Console.WriteLine("The key could not be generated"); }
         try
@@ -29,7 +28,7 @@ class Ciphercomp
                 {
                     if (char.IsLower(newptxt[i]))
                     {
-                        int lg = newptxt[i] + key[i];
+                        int lg = newptxt[i] + extend[i];
                         if (lg <= 219)
                         { 
                             mx = (char)(lg - 97);
@@ -43,7 +42,7 @@ class Ciphercomp
                     }
                     else
                     {
-                        int ug = newptxt[i] + key[i];
+                        int ug = newptxt[i] + extend[i];
                         if (ug <= 187)
                         {
                             mx = (char)(ug - 97);
@@ -78,8 +77,8 @@ class Ciphercomp
     public void Decryption(string ptxt)
     {
         Console.WriteLine("Enter the key");
-        string key = Console.ReadLine(), str = "", newptxt = ptxt;
-        string[] symbols = { " ", ".", "?", "/", ",", "'", "\\", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "+", "-", "*", "&", "\"", "^", "@", "!", "@", "#", "$", "%", "(", ")", ";", ":", "<", ">", "=", "`", "~" };
+        string key = Console.ReadLine(), str = "", newptxt = ptxt, extend = "";
+        string[] symbols = { " ", ".", "?", "/", "|", ",", "'", "\\", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "+", "-", "*", "_", "&", "\"", "^", "@", "!", "@", "#", "$", "%", "(", ")", ";", ":", "<", ">", "=", "~", "[", "]", "{", "}", "`", "+" };
         char mx;
         foreach (string symbol in symbols)
         {
@@ -87,11 +86,11 @@ class Ciphercomp
         }
         try
         {
-            while (newptxt.Length > key.Length)
+            while (newptxt.Length > extend.Length)
             {
-                key += key;
-                key = key.ToLower();
+                extend = extend + key;
             }
+            extend = extend.ToLower();
         }
         catch { Console.WriteLine("The key could not be generated"); }
         try
@@ -102,7 +101,7 @@ class Ciphercomp
                 {
                     if (char.IsLower(newptxt[i]))
                     {
-                        int lg = newptxt[i] - key[i];
+                        int lg = newptxt[i] - extend[i];
                         if (lg >= 0)
                         {
                             mx = (char)(lg + 97);
@@ -116,7 +115,7 @@ class Ciphercomp
                     }
                     else
                     {
-                        int ug = newptxt[i] - key[i];
+                        int ug = newptxt[i] - extend[i];
                         if (ug >= -32)
                         {
                             mx = (char)(ug + 97);
@@ -146,7 +145,7 @@ class Ciphercomp
             Console.WriteLine();
             Console.WriteLine("-----------------------------------------------------------------------------------------------------");
         }
-        catch { Console.WriteLine("An error occured during the encryption process"); }
+        catch { Console.WriteLine("An error occured during the decrypted process"); }
     }
 }
 class MainProg
@@ -167,7 +166,7 @@ class MainProg
             {
                 for(; ; ) 
                 {
-                    Console.WriteLine("Enter the string (or empty space to exit)");
+                    Console.WriteLine("Enter the string to encrypt (or empty space to exit)");
                     string plain = Console.ReadLine();
                     if (plain == br) { break; }
                     else { comp.Encryption(plain); }
@@ -177,7 +176,7 @@ class MainProg
             {
                 for (; ; ) 
                 {
-                    Console.WriteLine("Enter the string (or empty space to exit)");
+                    Console.WriteLine("Enter the string to decrypt (or empty space to exit)");
                     string plain = Console.ReadLine();
                     if (plain == br) { break; }
                     else { comp.Decryption(plain); }
